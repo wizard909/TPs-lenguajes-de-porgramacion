@@ -3,19 +3,49 @@
 **Alumno:** Facundo Cichero  
 **Sentencia a analizar:** `if` (Condicional)
 
-En este trabajo se extraen y reescriben las producciones gramaticales (desde el axioma de selección hasta los terminales) de la sentencia `if` en 6 lenguajes de programación, basándose en su documentación oficial.
+En este trabajo se realiza el recorrido gramatical completo ("poda de árbol") desde el **axioma principal** (raíz del programa) hasta llegar a la sentencia `if` y sus terminales. Se omitieron (podaron) las ramas alternativas que no conducen al `if` para enfocarse exclusivamente en el camino de derivación de esta estructura.
+
+---
 
 ## 1. Java
 **Fuente:** Oracle Java SE 7 Language Specification
 
+**Camino de derivación (Poda desde el axioma):**
+1. `<CompilationUnit>` (Axioma)
+2. `→ <TypeDeclaration>`
+3. `→ <ClassDeclaration>`
+4. `→ <NormalClassDeclaration>`
+5. `→ <ClassBody>`
+6. `→ <ClassBodyDeclaration>`
+7. `→ <ClassMemberDeclaration>`
+8. `→ <MethodDeclaration>`
+9. `→ <MethodBody>`
+10. `→ <Block>`
+11. `→ <BlockStatements>`
+12. `→ <BlockStatement>`
+13. `→ <Statement>`
+14. `→ <StatementWithoutTrailingSubstatement>`
+15. `→ <IfThenStatement>` | `<IfThenElseStatement>`
+
+**Producción Final (Terminales):**
 ```bnf
 <IfThenStatement> ::= "if" "(" <Expression> ")" <Statement>
 <IfThenElseStatement> ::= "if" "(" <Expression> ")" <Statement> "else" <Statement>
 ```
 
+---
+
 ## 2. Python
 **Fuente:** Python 3 Language Reference
 
+**Camino de derivación (Poda desde el axioma):**
+1. `<file>` (Axioma)
+2. `→ <statements>`
+3. `→ <statement>`
+4. `→ <compound_stmt>`
+5. `→ <if_stmt>`
+
+**Producción Final (Terminales):**
 ```bnf
 <if_stmt> ::= "if" <named_expression> ":" <block> <elif_stmt> 
             | "if" <named_expression> ":" <block> [<else_block>]
@@ -24,31 +54,86 @@ En este trabajo se extraen y reescriben las producciones gramaticales (desde el 
 <else_block> ::= "else" ":" <block>
 ```
 
+---
+
 ## 3. Kotlin
 **Fuente:** Kotlin Language Reference
 
+**Camino de derivación (Poda desde el axioma):**
+1. `<kotlinFile>` (Axioma)
+2. `→ <topLevelObject>`
+3. `→ <declaration>`
+4. `→ <functionDeclaration>`
+5. `→ <functionBody>`
+6. `→ <block>`
+7. `→ <statements>`
+8. `→ <statement>`
+9. `→ <expression>`
+10. `→ <ifExpression>`
+
+**Producción Final (Terminales):**
 ```bnf
 <ifExpression> ::= "if" "(" <expression> ")" <controlStructureBody> [ "else" <controlStructureBody> ]
 ```
 
+---
+
 ## 4. C++
 **Fuente:** ISO C++ Standard Grammar
 
+**Camino de derivación (Poda desde el axioma):**
+1. `<translation-unit>` (Axioma)
+2. `→ <declaration-seq>`
+3. `→ <declaration>`
+4. `→ <function-definition>`
+5. `→ <function-body>`
+6. `→ <compound-statement>`
+7. `→ <statement-seq>`
+8. `→ <statement>`
+9. `→ <selection-statement>`
+
+**Producción Final (Terminales):**
 ```bnf
 <selection-statement> ::= "if" [<constexpr>] "(" [<init-statement>] <condition> ")" <statement>
                         | "if" [<constexpr>] "(" [<init-statement>] <condition> ")" <statement> "else" <statement>
 ```
 
+---
+
 ## 5. Go
 **Fuente:** Go Programming Language Specification
 
+**Camino de derivación (Poda desde el axioma):**
+1. `<SourceFile>` (Axioma)
+2. `→ <TopLevelDecl>`
+3. `→ <FunctionDecl>`
+4. `→ <FunctionBody>`
+5. `→ <Block>`
+6. `→ <StatementList>`
+7. `→ <Statement>`
+8. `→ <IfStmt>`
+
+**Producción Final (Terminales):**
 ```bnf
 <IfStmt> ::= "if" [ <SimpleStmt> ";" ] <Expression> <Block> [ "else" ( <IfStmt> | <Block> ) ]
 ```
 
+---
+
 ## 6. C
 **Fuente:** The syntax of C in Backus-Naur form
 
+**Camino de derivación (Poda desde el axioma):**
+1. `<translation-unit>` (Axioma)
+2. `→ <external-declaration>`
+3. `→ <function-definition>`
+4. `→ <compound-statement>`
+5. `→ <block-item-list>`
+6. `→ <block-item>`
+7. `→ <statement>`
+8. `→ <selection-statement>`
+
+**Producción Final (Terminales):**
 ```bnf
 <selection-statement> ::= "if" "(" <expression> ")" <statement>
                         | "if" "(" <expression> ")" <statement> "else" <statement>
@@ -58,19 +143,19 @@ En este trabajo se extraen y reescriben las producciones gramaticales (desde el 
 
 ## Comparativa y Análisis Sintáctico
 
-A partir del análisis de las gramáticas, podemos identificar similitudes y diferencias clave en el diseño del condicional:
+A partir del análisis de la bajada desde el axioma hasta las terminales, identificamos lo siguiente:
 
-1. **Paréntesis en la condición:** 
+1. **Profundidad del Árbol (Axioma a Sentencia):**
+   - Lenguajes puramente orientados a objetos como **Java** requieren un nivel de anidamiento profundo (Axioma -> Declaración de Clase -> Cuerpo de Clase -> Método -> Bloque -> Sentencia) porque el `if` no puede existir fuera del bloque de un método dentro de una clase.
+   - Lenguajes como **Python o Go** permiten una bajada mucho más rápida y directa desde el archivo fuente al bloque de código.
+
+2. **Paréntesis en la condición:** 
    - **Java, C, C++ y Kotlin** exigen obligatoriamente que la expresión a evaluar esté encerrada entre paréntesis `( )`.
-   - **Python y Go** omiten los paréntesis, haciendo la sintaxis más limpia. En Go se asume que la expresión termina antes de abrir la llave del bloque `{`. En Python, termina con los dos puntos `:`.
+   - **Python y Go** omiten los paréntesis, haciendo la sintaxis más limpia. 
 
-2. **Bloques e Indentación:**
-   - **Python** utiliza terminales de indentación. No requiere llaves, pero exige explícitamente el token `:` para marcar el inicio del bloque.
+3. **Bloques e Indentación:**
+   - **Python** utiliza terminales de indentación y exige el token `:` para marcar el inicio del bloque.
    - El resto de los lenguajes (C, C++, Java, Kotlin, Go) derivan en un `Statement` o `Block` que tradicionalmente utiliza llaves `{ }`.
 
-3. **Sentencias de inicialización previas:**
-   - **C++ y Go** tienen una característica muy poderosa y única en sus producciones: permiten una declaración/inicialización dentro del mismo if antes de la condición (`<init-statement>` y `<SimpleStmt>`). Ejemplo en Go: `if v := math.Pow(x, n); v < lim { }`.
-
-4. **Cláusula Else opcional:**
-   - Todos los lenguajes tratan la cláusula `else` como un elemento opcional (marcado con `[ ]` en notación extendida o separado en otra regla).
-   - Python incluye explícitamente el token `elif` para evitar el anidamiento profundo, mientras que en lenguajes como C o Java un "else if" es sintácticamente un `else` seguido de una nueva sentencia `if`.
+4. **Sentencias de inicialización previas:**
+   - **C++ y Go** permiten una declaración/inicialización dentro del mismo `if` antes de la condición (`<init-statement>` y `<SimpleStmt>`).
