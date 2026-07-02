@@ -159,3 +159,22 @@ A partir del análisis de la bajada desde el axioma hasta las terminales, identi
 
 4. **Sentencias de inicialización previas:**
    - **C++ y Go** permiten una declaración/inicialización dentro del mismo `if` antes de la condición (`<init-statement>` y `<SimpleStmt>`).
+
+---
+
+## Tabla Comparativa de Gramáticas del IF
+
+Esta tabla compara, de un vistazo, cómo cada lenguaje expresa formalmente la sentencia condicional.
+
+| Característica | Java | Python | Kotlin | C++ | Go | C |
+|---|---|---|---|---|---|---|
+| **Axioma** | `<CompilationUnit>` | `<file>` | `<kotlinFile>` | `<translation-unit>` | `<SourceFile>` | `<translation-unit>` |
+| **Pasos hasta el IF** | 15 | 5 | 10 | 9 | 8 | 8 |
+| **Condición entre `( )`** | ✔️ Obligatorio | ❌ No | ✔️ Obligatorio | ✔️ Obligatorio | ❌ No | ✔️ Obligatorio |
+| **Marcador de bloque** | `{ }` | `:` + indentación | `{ }` | `{ }` | `{ }` | `{ }` |
+| **Permite `if-else`** | ✔️ | ✔️ | ✔️ | ✔️ | ✔️ | ✔️ |
+| **Permite `elif/else if`** | `else if` anidado | `elif` nativo | `else if` anidado | `else if` anidado | `else if` anidado | `else if` anidado |
+| **Inicialización en cabecera** | ❌ No | ❌ No | ❌ No | ✔️ `init-statement` | ✔️ `SimpleStmt` | ❌ No |
+| **if como expresión** | ❌ Sentencia | ❌ Sentencia | ✔️ Expresión | ❌ Sentencia | ❌ Sentencia | ❌ Sentencia |
+| **Terminal más cercana al axioma** | `<IfThenStatement>` | `<if_stmt>` | `<ifExpression>` | `<selection-statement>` | `<IfStmt>` | `<selection-statement>` |
+

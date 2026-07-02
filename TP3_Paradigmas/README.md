@@ -1,35 +1,164 @@
-# TP3 - Multiparadigma
+# TP3 - Resolver problemas en múltiples paradigmas
 
-**Alumno:** Facundo Cichero  
-**Problema resuelto:** Buscar elemento en una colección.
+**Alumno:** Facundo Cichero
 
-En este trabajo práctico se resolvió un mismo problema utilizando diferentes paradigmas de programación para evidenciar las diferencias de enfoque y comparar sus características.
-
-## Códigos Fuente
-- El código para los paradigmas **Procedural**, **Orientado a Objetos** y **Funcional** se encuentra implementado en el archivo `buscar.py` (usando Python).
-- El código para el paradigma **Lógico** se encuentra implementado en `buscar.pl` (usando Prolog).
+Se resuelven 3 problemas utilizando los paradigmas **Imperativo/Procedural**, **Orientado a Objetos**, **Funcional** y **Lógico** (Prolog), con el fin de comparar sus características, nivel de abstracción y eficiencia.
 
 ---
 
-## Tabla Comparativa de Criterios
+## Tabla comparativa de paradigmas
 
-| Criterio | Procedural / Imperativo | Orientado a Objetos | Funcional | Lógico |
-|----------|-------------------------|---------------------|-----------|--------|
-| **Claridad y legibilidad del código** | MEDIA | ALTA | BAJA | MEDIA |
-| **Nivel de abstracción** | BAJA | ALTA | ALTA | ALTA |
-| **Eficiencia y rendimiento** | ALTA | MEDIA | BAJA | MEDIA |
-| **Facilidad de mantenimiento y escalabilidad** | MEDIA | ALTA | ALTA | MEDIA |
-| **Expresión y concisión** | BAJA | ALTA | ALTA | ALTA |
+La tabla utiliza como lenguajes de implementación:
+- **Imperativo:** Python (con variables y ciclos explícitos)
+- **Orientado a Objetos (OOP):** Python (moderno y versátil)
+- **Funcional:** Python (funciones puras, `filter`, `sorted`, `map`)
+- **Lógico:** Prolog (declarativo de inferencia)
+
+> **Sobre "Expresividad y Concisión":** se refiere a la capacidad del lenguaje/paradigma de expresar ideas complejas usando pocas líneas de código. Un paradigma funcional puede resolver en 1 línea lo que el procedural resuelve en 10, siendo más "conciso".
 
 ---
 
-### Breve justificación de los enfoques:
+## Problema 1: Buscar elemento en una colección
 
-1. **Paradigma Procedural (Imperativo):** 
-   Se utiliza un ciclo `for` para recorrer la lista preguntando en cada posición si se encuentra el valor, comprobando esto mediante una variable de estado booleana (`encontrado`). Se debe explicitar el "cómo" hacerlo paso a paso.
-2. **Paradigma Orientado a Objetos:**
-   El objeto lista (o colección) ya sabe cómo buscar si contiene un elemento en su interior. El comportamiento está encapsulado dentro del propio objeto, exponiendo solo un método `buscar()`.
-3. **Paradigma Funcional:**
-   Se utilizan funciones de orden superior (`filter`) que reciben otras funciones anónimas (`lambda`) como argumentos. Es un enfoque matemático y declarativo donde uno se concentra en definir "qué" es el resultado sin importar los ciclos internos.
-4. **Paradigma Lógico:**
-   Se define una regla matemática de pertenencia pura. El programador solo establece los hechos ("X pertenece a la lista si X es la cabeza") y las reglas lógicas ("X pertenece si está en el resto del cuerpo"). El motor interno de inferencia se hace cargo de buscar si se cumple la condición.
+**Código:** [`buscar.py`](./buscar.py) y [`buscar.pl`](./buscar.pl)
+
+### Imperativo
+```python
+def buscar_procedural(lista, objetivo):
+    encontrado = False
+    for item in lista:      # ciclo explícito
+        if item == objetivo:
+            encontrado = True
+            break
+    return encontrado
+```
+
+### Orientado a Objetos
+```python
+class Coleccion:
+    def __init__(self, elementos):
+        self.elementos = elementos
+
+    def buscar(self, objetivo):
+        return objetivo in self.elementos  # comportamiento encapsulado
+
+c = Coleccion([3, 7, 2, 9])
+print(c.buscar(7))
+```
+
+### Funcional
+```python
+def buscar_funcional(lista, objetivo):
+    return len(list(filter(lambda x: x == objetivo, lista))) > 0
+```
+
+### Lógico (Prolog)
+```prolog
+pertenece(X, [X|_]).
+pertenece(X, [_|Cola]) :- pertenece(X, Cola).
+```
+
+### Tabla comparativa — Problema 1 (Buscar)
+
+| CRITERIOS | Imperativo (Python) | OOP (Python) | Funcional (Python) | Lógico (Prolog) |
+|---|---|---|---|---|
+| 1. Claridad y legibilidad | ALTA | ALTA | MEDIA | MEDIA |
+| 2. Nivel de abstracción | BAJO | MEDIO-ALTO | ALTO | ALTO |
+| 3. Eficiencia y rendimiento | ALTA | ALTA | MEDIA* | MEDIA |
+| 4. Facilidad de mantenimiento | MEDIA | ALTA | MEDIA | MEDIA |
+| 5. Expresividad y concisión | MEDIA | ALTA | ALTA | ALTA |
+
+> \* El paradigma funcional con `filter` recorre **toda la lista** sin hacer `break`, siendo menos eficiente para listas grandes.
+
+---
+
+## Problema 2: Ordenar elementos en una colección
+
+**Código:** [`ordenar.py`](./ordenar.py)
+
+### Imperativo — Bubble Sort
+```python
+def ordenar_procedural(lista):
+    n = len(lista)
+    for i in range(n):
+        for j in range(0, n - i - 1):
+            if lista[j] > lista[j + 1]:
+                aux = lista[j]
+                lista[j] = lista[j + 1]
+                lista[j + 1] = aux
+    return lista
+```
+> Le decimos a la máquina exactamente **cómo** mover cada elemento (doble `for`, variable auxiliar, comparación manual).
+
+### Orientado a Objetos
+```python
+class ColeccionOrdenable:
+    def __init__(self, elementos):
+        self.elementos = elementos
+
+    def ordenar(self):
+        self.elementos.sort()  # el objeto gestiona su propio estado
+```
+
+### Funcional
+```python
+def ordenar_funcional(lista):
+    return sorted(lista)  # retorna NUEVA lista sin modificar la original
+```
+
+### Tabla comparativa — Problema 2 (Ordenar)
+
+| CRITERIOS | Imperativo | OOP | Funcional | Lógico |
+|---|---|---|---|---|
+| 1. Claridad y legibilidad | BAJA | BAJA | ALTA | MEDIA |
+| 2. Nivel de abstracción | BAJO | ALTO | ALTO | ALTO |
+| 3. Eficiencia y rendimiento | MEDIA | ALTA | ALTA | MEDIA |
+| 4. Facilidad de mantenimiento | MEDIA | ALTA | ALTA | MEDIA |
+| 5. Expresividad y concisión | BAJA | MEDIA | ALTA | MEDIA |
+
+---
+
+## Problema 3: Gestionar lista de tareas (To-Do List)
+
+**Código:** [`tareas.py`](./tareas.py)
+
+### Orientado a Objetos
+```python
+class Tarea:
+    def __init__(self, titulo, prioridad):
+        self.titulo = titulo
+        self.prioridad = prioridad
+        self.completada = False
+
+    def completar(self):
+        self.completada = True
+
+class ToDoList:
+    def agregar(self, titulo, prioridad):
+        self.tareas.append(Tarea(titulo, prioridad))
+
+    def mostrar_pendientes(self):
+        pendientes = [t for t in self.tareas if not t.completada]
+        for t in sorted(pendientes, key=lambda x: x.prioridad):
+            print(f"{t.titulo} | Prioridad: {t.prioridad}")
+```
+
+### Funcional (Python)
+```python
+# Todas las funciones reciben y retornan datos sin mutar el estado original
+def agregar_tarea(lista, titulo, prioridad):
+    return lista + [{"titulo": titulo, "prioridad": prioridad, "completada": False}]
+
+def completar_tarea(lista, titulo):
+    return [{**t, "completada": True} if t["titulo"] == titulo else t for t in lista]
+```
+
+### Tabla comparativa — Problema 3 (Tareas)
+
+| CRITERIOS | Imperativo | OOP | Funcional | Lógico |
+|---|---|---|---|---|
+| 1. Claridad y legibilidad | MEDIA | ALTA | MEDIA | MEDIA |
+| 2. Nivel de abstracción | BAJO | ALTO | ALTO | ALTO |
+| 3. Eficiencia y rendimiento | MEDIA | MEDIA | MEDIA | MEDIA |
+| 4. Facilidad de mantenimiento | BAJA | ALTA | ALTA | MEDIA |
+| 5. Expresividad y concisión | BAJA | ALTA | MEDIA | MEDIA |
