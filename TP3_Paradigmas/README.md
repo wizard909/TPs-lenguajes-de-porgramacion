@@ -120,6 +120,17 @@ def ordenar_funcional(lista):
 
 **Código:** [`tareas.py`](./tareas.py)
 
+### Imperativo (Procedural)
+```python
+lista_tareas = []
+
+def agregar_tarea(titulo, prioridad):
+    lista_tareas.append({"titulo": titulo, "prioridad": prioridad, "completada": False})
+
+def completar_tarea(indice):
+    lista_tareas[indice]["completada"] = True
+```
+
 ### Orientado a Objetos
 ```python
 class Tarea:
@@ -151,6 +162,18 @@ def completar_tarea(lista, titulo):
     return [{**t, "completada": True} if t["titulo"] == titulo else t for t in lista]
 ```
 
+### Lógico (Prolog)
+```prolog
+:- dynamic tarea/3. % tarea(Titulo, Prioridad, Estado)
+
+agregar_tarea(Titulo, Prioridad) :-
+    assertz(tarea(Titulo, Prioridad, pendiente)).
+
+completar_tarea(Titulo) :-
+    retract(tarea(Titulo, Prioridad, pendiente)),
+    assertz(tarea(Titulo, Prioridad, completada)).
+```
+
 ### Tabla comparativa — Problema 3 (Tareas)
 
 | CRITERIOS | Imperativo | OOP | Funcional | Lógico |
@@ -160,3 +183,15 @@ def completar_tarea(lista, titulo):
 | 3. Eficiencia y rendimiento | MEDIA | MEDIA | MEDIA | MEDIA |
 | 4. Facilidad de mantenimiento | BAJA | ALTA | ALTA | MEDIA |
 | 5. Expresividad y concisión | BAJA | ALTA | MEDIA | MEDIA |
+
+---
+
+## Conclusión Global: Variabilidad según el problema
+
+Al cruzar los datos de las tres tablas comparativas, surge un *Insight* fundamental: **El desempeño, legibilidad y conveniencia de un paradigma no son absolutos, sino que mutan drásticamente según la naturaleza del problema a resolver**.
+
+1. **El costo de la abstracción Funcional:** Para un problema matemático o declarativo (como ordenar una lista en el *Problema 2*), el paradigma funcional brilla por su concisión asombrosa (`sorted(lista)` en 1 línea) con Altísima Legibilidad. Sin embargo, cuando lo forzamos a resolver problemas de estado y manipulación transaccional (como marcar una tarea como completada en una To-Do list iterativa en el *Problema 3*), la inmutabilidad de datos vuelve el código verboso y complejo (Media Claridad).
+2. **La robustez del Orientado a Objetos (OOP):** El OOP muestra su máximo esplendor en dominios que simulan la vida real (el *Problema 3* de Tareas). Encapsular estado y comportamiento en una clase `ToDoList` eleva brutalmente la facilidad de mantenimiento y legibilidad. Sin embargo, usar todo el *overhead* de una clase instanciada solo para hacer una búsqueda lineal (*Problema 1*) resulta en una sobreingeniería innecesaria.
+3. **El poder (y el peligro) Imperativo:** Es imbatible en eficiencia cruda para el control a bajo nivel (como salir de un ciclo `for` inmediatamente con un `break` en el *Problema 1*), pero sufre un declive fatal en escalabilidad y legibilidad cuando el problema crece (como el doble ciclo incomprensible de un `Bubble Sort` en el *Problema 2*).
+
+En conclusión, ningún paradigma domina todas las métricas. La elección arquitectónica debe estar atada al caso de uso (dominio del problema) y no al fanatismo por un lenguaje.

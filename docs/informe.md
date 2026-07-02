@@ -61,8 +61,17 @@ Analizando la métrica de variación `Change_Pct`, concluimos las tendencias act
 - **OOP / Funcional:** Abstraen el algoritmo con llamadas a `sort()` (muta el objeto) y `sorted()` (retorna una nueva lista, sin efectos colaterales). Altísimo nivel de abstracción.
 
 ### Problema 3: Gestionar lista de tareas (To-Do List)
-- **OOP:** Modela una clase `Tarea` (estado: completada) y `ToDoList` (estado: lista). 
+- **Imperativo:** Manipula variables globales e índices. Eficiente pero frágil a errores (Baja Mantenibilidad).
+- **OOP:** Modela una clase `Tarea` (estado: completada) y `ToDoList` (estado: lista). Altísimo encapsulamiento y legibilidad.
 - **Funcional:** Gestiona la misma lógica sin mutar estados, usando listas inmutables y diccionarios donde cada función retorna la colección modificada sin afectar la original.
+- **Lógico:** Maneja la lista de tareas a través de hechos dinámicos en la base de conocimientos (`assertz` y `retract`).
+
+### Conclusión Global: Variabilidad según el problema
+Al cruzar los datos de los 3 problemas, el mayor insight es que **el desempeño y legibilidad de un paradigma mutan según la naturaleza del problema**:
+1. **El costo de la abstracción Funcional:** Brilla por su concisión matemática (`sorted(lista)` en 1 línea), pero forzarlo a resolver problemas de estado iterativo (marcar tareas como completadas) vuelve el código inmutable verboso y antinatural.
+2. **La robustez OOP:** Alcanza su clímax modelando la vida real (Tareas), elevando la legibilidad. Sin embargo, usar una clase solo para hacer una búsqueda lineal en una lista es una sobreingeniería innecesaria.
+3. **El poder Imperativo:** Imbatible en eficiencia cruda para saltos lógicos (`break` al buscar), pero sufre un declive fatal en escalabilidad cuando la complejidad algorítmica crece (doble for en Bubble Sort).
+Ningún paradigma domina todas las métricas en todos los contextos; la elección debe atarse al dominio del problema.
 
 <br><br>
 

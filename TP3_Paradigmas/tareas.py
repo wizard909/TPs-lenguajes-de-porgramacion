@@ -8,6 +8,33 @@ print("=============================================")
 print("PROBLEMA 3: Gestionar lista de tareas")
 print("=============================================\n")
 
+# ---- PARADIGMA IMPERATIVO / PROCEDURAL (Python) ----
+# Usa variables globales y modifica el estado directamente paso a paso.
+
+lista_tareas_global = []
+
+def agregar_tarea_proc(titulo, prioridad):
+    lista_tareas_global.append({"titulo": titulo, "prioridad": prioridad, "completada": False})
+
+def completar_tarea_proc(indice):
+    lista_tareas_global[indice]["completada"] = True
+
+def mostrar_pendientes_proc():
+    print("--- Lista de pendientes (Procedural) ---")
+    for tarea in lista_tareas_global:
+        if not tarea["completada"]:
+            print(f"  {tarea['titulo']} | Prioridad: {tarea['prioridad']}")
+    print()
+
+print("[Procedural - Python]")
+agregar_tarea_proc("Comprar pan", 2)
+agregar_tarea_proc("Estudiar Python", 1)
+agregar_tarea_proc("Pagar servicios", 3)
+mostrar_pendientes_proc()
+completar_tarea_proc(1)
+mostrar_pendientes_proc()
+
+
 # ---- PARADIGMA ORIENTADO A OBJETOS (Python) ----
 # La lógica y el estado están encapsulados dentro del objeto.
 # El objeto "sabe" cómo gestionarse a sí mismo.
