@@ -5,6 +5,8 @@
 
 En este Trabajo Práctico, se partió de un Google Colab (`Tiobe.ipynb`) que contenía métricas históricas de popularidad de los lenguajes de programación. El objetivo fue aplicar técnicas de Data Science para transformar los datos crudos en información útil.
 
+**Enlace original al Colab (Base de trabajo):** [Ver en Google Colab](https://colab.research.google.com/drive/1j54L5F5twaPsUoUTJdBf0BqJ5qHUozp3?hl=es-es#scrollTo=g9I12k8L_pFr)
+
 ## 1. Limpieza de Datos (Data Cleaning)
 Se aplicaron las siguientes transformaciones al DataFrame usando Pandas:
 - **Tratamiento de Nulos:** Se identificaron filas con valores vacíos (NaN) en la columna de Paradigmas y se las completó con el valor por defecto `'Unknown'`.

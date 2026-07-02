@@ -5,6 +5,8 @@
 
 En este trabajo práctico se clasifican 5 lenguajes de programación modernos de acuerdo a las categorías de la cátedra, volcando los datos analizados originalmente en la planilla de cálculo.
 
+**Enlace a la planilla de cálculo fuente:** [Ver Excel en Google Drive](https://docs.google.com/spreadsheets/d/19aTSzIjQNs6RBNJFz0bftTlqKr-uWbohbBZnxmP0-r0/edit?gid=0#gid=0)
+
 ## Tabla de Clasificación
 
 | LENGUAJE | AÑO | TIPO DE PARADIGMA | NIVEL ABSTRACCIÓN | DOMINIO | TIPO DE TRADUCTOR | ALMACENAMIENTO DE VARIABLES | GENERACIÓN | MANERA DE ABORDAR LA TAREA | LUGAR DE EJECUCIÓN | CONCURRENCIA | INTERACTIVIDAD DEL PROGRAMA | REALIZACIÓN VISUAL | PREDICCIÓN DEL SIGUIENTE ESTADO | CARACTERÍSTICAS ÚTILES O PRODUCTIVAS | DATO CURIOSO |
