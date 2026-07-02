@@ -26,146 +26,68 @@
 
 <br><br>
 
-## TRABAJO PRÁCTICO N°2 - Análisis de Datos
-**Consigna:** Análisis de datos referidos a los LP, limpieza y visualización mediante gráficos (Colab).
+## TRABAJO PRÁCTICO N°2 - Análisis de Datos (Ciencia de Datos)
+**Consigna:** Explorar y visualizar datos del Índice TIOBE para responder preguntas clave y extraer *Insights*.
 
-Se trabajó sobre un dataset basado en el Índice TIOBE y popularidad de lenguajes. El código completo en Python (`pandas`, `matplotlib`, `seaborn`) se encuentra en el repositorio de GitHub asociado. 
+### 1. Limpieza de Datos (Data Cleaning)
+Para evitar que los gráficos se distorsionen ("no graficar por graficar"), se aplicó un perfilado y limpieza estricta usando Pandas:
+- **Nulos:** Imputación con el valor `N/A`.
+- **Inconsistencias Categóricas:** Todas las variables de Tipado y Paradigma pasaron a minúsculas (`str.lower()`) para evitar duplicaciones como "Object-Oriented" y "object-oriented".
+- **Agrupamiento:** Se mapeó la categoría `visual` dentro de `multi-paradigm`.
 
-### Decisiones de Limpieza de Datos (Data Cleaning)
-1. **Tratamiento de Nulos:** Los valores faltantes (`NaN`) en la columna de Paradigmas fueron identificados y rellenados con el valor por defecto `'Unknown'`.
-2. **Normalización de Strings:** Se limpiaron espacios en blanco adicionales usando funciones de `strip()` y se normalizó el texto a título (`title()`) para evitar duplicaciones lógicas (ej: " python " y "Python").
-3. **Descarte de Duplicados:** Se eliminaron las filas repetidas exactas mediante `drop_duplicates()`.
+### 2. Análisis Exploratorio (EDA)
+Se generaron múltiples visualizaciones para entender la industria:
+- **Top 5 Lenguajes:** Torta clásica agrupando del 6to al 28vo puesto bajo la categoría "Otros", demostrando el dominio masivo de Python y C.
+- **Tipado:** Gráficos que comprueban la supremacía del tipado estático (64%) para desarrollos robustos.
+- **Casos de uso:** Al separar las listas separadas por coma en `Primary_Use`, el barplot evidenció que "Web" y "Systems" son las industrias más voraces de lenguajes.
 
-### Resultados de Visualización
-- Se generaron gráficos de barra mostrando a C y Python liderando el ranking histórico.
-- Se graficó una distribución porcentual (gráfico de torta) que evidenció cómo el paradigma Multiparadigma y Orientado a Objetos acaparan gran parte del uso de la industria frente al lógico puro o funcional.
+### 3. Insights
+Analizando la métrica de variación `Change_Pct`, concluimos las tendencias actuales:
+🚀 **Mayor crecimiento:** Python (+1.85%), Perl (+0.90%).
+📉 **Mayor caída:** C (-5.41%), Java (-3.38%).
 
 <br><br>
 
-## TRABAJO PRÁCTICO N°3 - Solución en Diferentes Paradigmas
-**Consigna:** Resolver el problema "Buscar un elemento en una colección" utilizando distintos paradigmas y generar una tabla comparativa en base a 5 criterios.
+## TRABAJO PRÁCTICO N°3 - Multiparadigma
+**Consigna:** Resolver 3 problemas utilizando los paradigmas Imperativo, OOP, Funcional y Lógico, incluyendo tablas comparativas. Se incluye justificación empírica midiendo tiempos de ejecución en Python.
 
-### Códigos Desarrollados
+### Problema 1: Buscar elemento en una colección
+- **Imperativo:** Recorre explícitamente con `for` y variable `encontrado` (Alta eficiencia).
+- **OOP:** Encapsula la lógica en un método `buscar()` dentro de una clase (Alto nivel de abstracción).
+- **Funcional:** Usa lambdas puras y `filter`. (Menor eficiencia ya que evalúa toda la colección sin hacer break, pero Altísima expresividad/concisión en una línea).
 
-**1. Paradigma Procedural / Imperativo (Python)**
-```python
-def buscar_procedural(lista, objetivo):
-    encontrado = False
-    for item in lista:
-        if item == objetivo:
-            encontrado = True
-            break
-    return encontrado
-```
+### Problema 2: Ordenar elementos
+- **Imperativo:** Se implementó `Bubble Sort` con doble ciclo anidado. Explica el **cómo** paso a paso (Baja legibilidad, Baja concisión).
+- **OOP / Funcional:** Abstraen el algoritmo con llamadas a `sort()` (muta el objeto) y `sorted()` (retorna una nueva lista, sin efectos colaterales). Altísimo nivel de abstracción.
 
-**2. Paradigma Orientado a Objetos (Python)**
-```python
-class Coleccion:
-    def __init__(self, elementos):
-        self.elementos = elementos
-
-    def buscar(self, objetivo):
-        return objetivo in self.elementos
-```
-
-**3. Paradigma Funcional (Python)**
-```python
-def buscar_funcional(lista, objetivo):
-    resultado = list(filter(lambda x: x == objetivo, lista))
-    return len(resultado) > 0
-```
-
-**4. Paradigma Lógico (Prolog)**
-```prolog
-pertenece(X, [X|_]).
-pertenece(X, [_|Cola]) :- pertenece(X, Cola).
-```
-
-### Tabla Comparativa de Criterios
-
-| Criterio | Procedural | Orientado a Objetos | Funcional | Lógico |
-|---|---|---|---|---|
-| **Claridad y legibilidad del código** | MEDIA | ALTA | BAJA | MEDIA |
-| **Nivel de abstracción** | BAJA | ALTA | ALTA | ALTA |
-| **Eficiencia y Rendimiento** | ALTA | MEDIA | BAJA | MEDIA |
-| **Facilidad de mantenimiento** | MEDIA | ALTA | ALTA | MEDIA |
-| **Expresión y concisión** | BAJA | ALTA | ALTA | ALTA |
+### Problema 3: Gestionar lista de tareas (To-Do List)
+- **OOP:** Modela una clase `Tarea` (estado: completada) y `ToDoList` (estado: lista). 
+- **Funcional:** Gestiona la misma lógica sin mutar estados, usando listas inmutables y diccionarios donde cada función retorna la colección modificada sin afectar la original.
 
 <br><br>
 
 ## TRABAJO PRÁCTICO N°4 - Gramática de la sentencia IF
-**Consigna:** Identificar la gramática del `if` en distintos lenguajes proporcionados desde sus fuentes oficiales, reescribiendo las producciones desde el axioma hasta los terminales.
+**Consigna:** Camino de derivación desde el axioma principal hasta los terminales.
 
-**1. Java** (JLS SE7)
-```bnf
-<IfThenStatement> ::= "if" "(" <Expression> ")" <Statement>
-<IfThenElseStatement> ::= "if" "(" <Expression> ")" <Statement> "else" <Statement>
-```
+**Comparativa Sintáctica Formal:**
 
-**2. Python** (Language Reference 3)
-```bnf
-<if_stmt> ::= "if" <named_expression> ":" <block> <elif_stmt> 
-            | "if" <named_expression> ":" <block> [<else_block>]
-```
-
-**3. Kotlin** (Language Reference)
-```bnf
-<ifExpression> ::= "if" "(" <expression> ")" <controlStructureBody> [ "else" <controlStructureBody> ]
-```
-
-**4. C++** (ISO Standard)
-```bnf
-<selection-statement> ::= "if" [<constexpr>] "(" [<init-statement>] <condition> ")" <statement> [ "else" <statement> ]
-```
-
-**5. Go** (Language Specification)
-```bnf
-<IfStmt> ::= "if" [ <SimpleStmt> ";" ] <Expression> <Block> [ "else" ( <IfStmt> | <Block> ) ]
-```
-
-**6. C** (BNF Syntax)
-```bnf
-<selection-statement> ::= "if" "(" <expression> ")" <statement> [ "else" <statement> ]
-```
-
-**Análisis Comparativo:** Java, C, C++ y Kotlin exigen que la expresión esté entre paréntesis, mientras que Go y Python no. Python es el único que marca los bloques mediante indentación obligatoria (marcada con el token `:`). C++ y Go permiten declarar una variable de inicialización en la misma cabecera del condicional.
+| Característica | Java | Python | Kotlin | C++ | Go | C |
+|---|---|---|---|---|---|---|
+| **Axioma Principal** | `<CompilationUnit>` | `<file>` | `<kotlinFile>` | `<translation-unit>` | `<SourceFile>` | `<translation-unit>` |
+| **Pasos hasta el IF** | 15 (Muy anidado) | 5 (Rápido) | 10 | 9 | 8 | 8 |
+| **Condición entre `( )`** | ✔️ Obligatorio | ❌ No | ✔️ Obligatorio | ✔️ Obligatorio | ❌ No | ✔️ Obligatorio |
+| **Marcador de bloque** | `{ }` | `:` + indentación | `{ }` | `{ }` | `{ }` | `{ }` |
+| **if como expresión** | ❌ Sentencia | ❌ Sentencia | ✔️ Expresión | ❌ Sentencia | ❌ Sentencia | ❌ Sentencia |
 
 <br><br>
 
 ## TRABAJO PRÁCTICO N°5 - Tabla 61C, Lenguaje BRA
-**Consigna:** Formalizar la sintaxis del lenguaje BRA de la cátedra utilizando BNF, EBNF y ABNF, construyendo luego la tabla comparativa de metasímbolos 61C.
+**Consigna:** Formalizar la sintaxis del lenguaje BRA (P. Pandolfo) en BNF, EBNF y ABNF.
 
-### Gramáticas
-
-**1. BNF Original**
-```bnf
-<programa>         ::= "começo" <lista-sentencias> "final"
-<lista-sentencias> ::= <sentencia> | <sentencia> <lista-sentencias>
-<sentencia>        ::= <asignacion> | <entrada> | <salida>
-<asignacion>       ::= <id> "::=" <expresion> ";"
-<entrada>          ::= "ler" "(" <lista-id> ")" ";"
-<salida>           ::= "escrever" "(" <lista-expr> ")" ";"
-<lista-id>         ::= <id> | <id> "," <lista-id>
-<lista-expr>       ::= <expresion> | <expresion> "," <lista-expr>
-```
-
-**2. EBNF (Extended)**
-```ebnf
-Programa      = "começo", Sentencia, { Sentencia }, "final" ;
-Sentencia     = Asignacion | Entrada | Salida ;
-Asignacion    = ID, "::=", Expresion, ";" ;
-Entrada       = "ler", "(", ID, { ",", ID }, ")", ";" ;
-Salida        = "escrever", "(", Expresion, { ",", Expresion }, ")", ";" ;
-```
-
-**3. ABNF (Augmented)**
-```abnf
-programa      = "começo" 1*sentencia "final"
-sentencia     = asignacion / entrada / salida
-asignacion    = id "::=" expresion ";"
-entrada       = "ler" "(" id *( "," id ) ")" ";"
-salida        = "escrever" "(" expresion *( "," expresion ) ")" ";"
-```
+### Gramáticas Obtenidas
+- **BNF:** Basado en `<programa> ::= "começo" <lista-sentencias> "final"`. Variables implícitas, máximo 4 letras.
+- **EBNF:** Introduce cuantificadores `{ }` para bucles y eliminar la recursión por izquierda.
+- **ABNF:** Formaliza la repetición con `1*` y las terminales directas con `/` en vez del `|` lógico.
 
 ### Tabla 61C: Comparativa de Metasímbolos
 
@@ -173,10 +95,6 @@ salida        = "escrever" "(" expresion *( "," expresion ) ")" ";"
 |-------------------------|--------------|------|------|
 | **Definición** | `::=` | `=` | `=` |
 | **Alternativa (O) lógica** | `\|` | `\|` | `/` |
-| **Concatenación** | (espacio en blanco) | `,` | (espacio en blanco) |
 | **No Terminales** | `<nombre>` | `Nombre` | `nombre` |
-| **Terminales** | `"texto"` | `"texto"` o `'texto'` | `"texto"` o `%xHEX` |
-| **Opcionalidad (0 o 1 vez)**| No soportado (requiere recursión) | `[ ]` | `[ ]` |
-| **Repetición (0 o Múltiples)**| No soportado (requiere recursión) | `{ }` | `*` |
-| **Repetición (1 o Múltiples)**| No soportado | No soportado directo | `1*` |
-| **Fin de la regla** | (salto de línea) | `;` | (salto de línea) |
+| **Opcionalidad**| No soportado | `[ ]` | `[ ]` |
+| **Repetición (0 a N)**| No soportado | `{ }` | `*` |
