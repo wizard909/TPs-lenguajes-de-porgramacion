@@ -14,8 +14,6 @@ La tabla utiliza como lenguajes de implementación:
 - **Funcional:** Python (funciones puras, `filter`, `sorted`, `map`)
 - **Lógico:** Prolog (declarativo de inferencia)
 
-> **Sobre "Expresividad y Concisión":** se refiere a la capacidad del lenguaje/paradigma de expresar ideas complejas usando pocas líneas de código. Un paradigma funcional puede resolver en 1 línea lo que el procedural resuelve en 10, siendo más "conciso".
-
 ---
 
 ## Problema 1: Buscar elemento en una colección
