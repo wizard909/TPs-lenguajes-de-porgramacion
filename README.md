@@ -13,3 +13,4 @@ Este repositorio contiene la entrega de los Trabajos Prácticos (1 al 5) de la m
 - **[TP3 - Multiparadigma](./TP3_Paradigmas):** Solución a un problema de búsqueda utilizando diferentes paradigmas (Imperativo, Orientado a Objetos, Funcional, Lógico) y tabla comparativa.
 - **[TP4 - Gramática de Sentencias](./TP4_GramaticaIF):** Identificación de la gramática del `if` en distintos lenguajes, reescribiendo producciones desde el axioma hasta los terminales.
 - **[TP5 - Lenguaje BRA](./TP5_GramaticaBRA):** Comparativa de formatos BNF, EBNF y ABNF para el lenguaje BRA (Tabla 61C).
+- **[TP6 - Mapa Conceptual sobre Flujos](./TP6_Flujos):** Desarrollo de mapa conceptual sobre flujos de datos.

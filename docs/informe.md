@@ -107,3 +107,18 @@ Ningún paradigma domina todas las métricas en todos los contextos; la elecció
 | **No Terminales** | `<nombre>` | `Nombre` | `nombre` |
 | **Opcionalidad**| No soportado | `[ ]` | `[ ]` |
 | **Repetición (0 a N)**| No soportado | `{ }` | `*` |
+
+<br><br>
+
+## TRABAJO PRÁCTICO N°6 - Mapa Conceptual sobre Flujos
+**Consigna:** Elaborar un mapa conceptual detallando los flujos de control de los lenguajes de programación.  
+**Diagrama Original:** [Ver en Diagrams.net (Draw.io)](https://app.diagrams.net/#G1GetMdMIAE7sQKF2swE4nx6hQq9HCZj8_#%7B%22pageId%22%3A%22C5RBs43oDa-KdzZeNtuy%22%7D)
+
+### Estructuras de Flujo de Control
+Todo lenguaje estructurado y Turing Completo debe ser capaz de alterar su flujo secuencial para tomar decisiones o iterar:
+1. **Flujo Secuencial:** Ejecución línea por línea.
+2. **Selección (Condicionales):** Bifurcaciones lógicas (`If`, `If-Else`, `Switch-Case`).
+3. **Iteración (Repetición):** Bucles pre-condicionales (`While`), post-condicionales (`Do-While`) y por contadores/colecciones (`For`, `For-Each`).
+4. **Saltos Incondicionales:** Interrupción directa del flujo (`Break`, `Continue`, `Return`, o el obsoleto `Goto`).
+5. **Manejo de Excepciones:** Contención de errores en tiempo de ejecución (`Try`, `Catch`, `Finally`).
+6. **Subprogramas y Concurrencia:** Delegan el flujo a otra porción de memoria o hilo (`Llamadas a funciones`, `Corrutinas`, `Threads`).
