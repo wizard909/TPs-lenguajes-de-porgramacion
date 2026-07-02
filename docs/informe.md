@@ -8,6 +8,20 @@
 **Año:** 2026
 ---
 
+<br>
+
+## Autoevaluación del Alumno
+De acuerdo a los criterios de la cátedra, se asignó una calificación subjetiva a cada Trabajo Práctico basada en la dificultad experimentada, la comprensión profunda lograda y el esfuerzo invertido:
+
+| Trabajo Práctico | Nota Asignada | Calificación | Justificación Subjetiva (Autoevaluación) |
+| :--- | :---: | :---: | :--- |
+| **TP1 - Clasificación** | **8** | **B** | Muy sólido. Costó rastrear datos curiosos específicos, pero la clasificación mediante la tabla de taxonomía se asimiló perfectamente. |
+| **TP2 - Análisis de Datos** | **6** | **R** | Costó la parte técnica de limpieza (Pandas) y la generación de gráficos avanzados. Se entendió la lógica de los *Insights*, pero la implementación técnica fue un desafío. |
+| **TP3 - Multiparadigma** | **6** | **R** | El TP más complejo y abstracto. Se comprende bien la teoría visual (qué paradigma reduce líneas de código), pero implementar la lógica algorítmica desde cero en paradigmas no dominados (como Funcional o Lógico) fue muy duro. |
+| **TP4 - Gramática IF** | **8** | **B** | Es puramente técnico y mecánico. Llevó tiempo leer la documentación oficial de 6 lenguajes, pero el proceso de "poda del árbol" fue claro y sin ambigüedades. |
+| **TP5 - Lenguaje BRA** | **6** | **R** | Traducir BNF puro a EBNF/ABNF fue confuso al principio, especialmente al intentar eliminar la recursividad usando los cuantificadores `{}`. |
+| **TP6 - Flujos** | **10** | **MB** | Excelente. Armar el mapa conceptual fue la tarea más clara y amena, permitiendo conectar toda la teoría de estructuras de control visualmente. |
+
 <br><br>
 
 ## TRABAJO PRÁCTICO N°1 - Clasificación de los LP
